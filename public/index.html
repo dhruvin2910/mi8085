@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mi8085App">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+  <title>MI 8085</title>
+
+  <!-- styles: vendor-->
+  <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css"/>
+  <!-- styles: /vendor-->
+
+  <!-- scripts: vendor-->
+  <script src="vendor/angular/angular.min.js"></script>
+  <script src="vendor/angular-route/angular-route.min.js"></script>
+  <script src="vendor/jquery/dist/jquery.min.js"></script>
+  <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- scripts: /vendor-->
+
+  <!-- scripts: user-->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/DashboardCtrl.js"></script>
+  <!-- scripts: /user-->
+
+</head>
+<body>
+
+<br/>
+
+<div class="container" ng-view=""></div>
+
+</body>
+</html>

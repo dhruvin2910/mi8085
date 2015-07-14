@@ -1,0 +1,28 @@
+{
+  "name": "mi8085",
+  "main": "./public/index.html",
+  "version": "0.0.0",
+  "authors": [
+    "Dhruvin Gandhi <dhruvin2910@gmail.com>"
+  ],
+  "description": "Complete guide to 8085",
+  "keywords": [
+    "8085",
+    "MI",
+    "Guide"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "./public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.2",
+    "bootstrap": "~3.3.5",
+    "angular-route": "~1.4.2"
+  }
+}
