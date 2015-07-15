@@ -9,7 +9,7 @@ export var app = express();
 
 app.use(bodyParser.json({extended: true}));
 
-app.use('/api', api.router);
+app.use('/api/mnemonics', api.router);
 
 app.use(express.static('./public'));
 

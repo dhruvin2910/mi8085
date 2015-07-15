@@ -12,6 +12,10 @@ module mi8085App {
           templateUrl: 'views/dashboard.html',
           controller: 'DashboardCtrl'
         })
+        .when('/view-instruction/:underScoredMnemonic', {
+          templateUrl: 'views/view-instruction.html',
+          controller: 'ViewInstructionCtrl'
+        })
         .otherwise({
           redirectTo: '/dashboard'
         })

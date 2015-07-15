@@ -83,7 +83,7 @@ router.delete('/:mnemonic', function (req, res) {
 });
 
 router.all('*', function (req, res) {
-  res.writeHead(200, 'OK');
+  res.writeHead(403, 'Not allowed');
   res.end('Not allowed');
 });
 
