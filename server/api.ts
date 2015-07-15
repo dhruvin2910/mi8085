@@ -20,7 +20,7 @@ router.get('/:mnemonic', function (req, res) {
       return;
     }
   }
-  res.writeHead(200, 'OK');
+  res.writeHead(404, 'Not found.');
   res.end('No data found');
 });
 
@@ -38,7 +38,7 @@ router.put('/:mnemonic', function (req, res) {
       return;
     }
   }
-  res.writeHead(200, 'OK');
+  res.writeHead(404, 'Not found.');
   res.end('No data found');
 });
 
@@ -78,7 +78,7 @@ router.delete('/:mnemonic', function (req, res) {
       return;
     }
   }
-  res.writeHead(200, 'OK');
+  res.writeHead(404, 'Not found.');
   res.end('No data found');
 });
 

@@ -7,7 +7,7 @@ import api = require('./api');
 
 export var app = express();
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json({extended: true}));
 
 app.use('/api', api.router);
 

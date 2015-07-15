@@ -8,15 +8,12 @@ module mi8085App {
     config(function ($routeProvider) {
 
       $routeProvider
-        .when('/', {
-          redirectTo: 'dashboard'
-        })
         .when('/dashboard', {
           templateUrl: 'views/dashboard.html',
           controller: 'DashboardCtrl'
         })
         .otherwise({
-          redirectTo: '/'
+          redirectTo: '/dashboard'
         })
 
     });

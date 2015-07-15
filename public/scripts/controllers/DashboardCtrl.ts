@@ -4,7 +4,7 @@ module DashboardCtrl {
 
   angular.module('mi8085App')
     .controller('DashboardCtrl', function ($scope) {
-      $scope.hw = 'Hello World';
+      $scope.view = 'Dashboard';
     })
 
 }
