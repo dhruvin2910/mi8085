@@ -45,6 +45,8 @@ module ViewInstructionCtrl {
         $scope.data.canvas.width = 1200;
         $scope.data.canvas.height = 900;
 
+        $scope.clearCanvas();
+
         var machineCycles = $scope.data.instructionDetails.machineCycles.split(' ');
 
         $scope.drawLegend();
@@ -751,6 +753,21 @@ module ViewInstructionCtrl {
         ctx.restore();
 
       };
+
+      $scope.save = function () {
+        var a = document.createElement('a');
+        a.href = $scope.data.canvas.toDataURL(0, 0, 1200, 900);
+        a['download'] = $scope.data.mnemonic;
+        a.click();
+      };
+
+      $scope.clearCanvas = function () {
+        var ctx = $scope.data.ctx;
+        ctx.save();
+        ctx.fillStyle = 'white';
+        $scope.data.ctx.fillRect(0, 0, 1200, 900);
+        ctx.restore();
+      }
 
     });
 
