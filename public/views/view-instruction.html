@@ -34,21 +34,30 @@
       </table>
     </div>
 
-    <div class="table-responsive">
+    <hr/>
+
+    <div class="text-left" style="padding-left: 10px;">
+      <strong style="font-size: 14px;">Flags Affected :
+        <span ng-if="data.instructionDetails.flagsAffected.none == 'Yes'">None</span>
+      </strong>
+    </div>
+
+    <hr ng-if="data.instructionDetails.flagsAffected.none == 'No'"/>
+
+    <div ng-if="data.instructionDetails.flagsAffected.none == 'No'" class="table-responsive">
+
       <table class="table table-striped table-bordered">
         <tr>
-          <th class="text-center" style="width: 14.25%;">All</th>
-          <th class="text-center" style="width: 14.25%;">None</th>
-          <th class="text-center" style="width: 14.25%;">S</th>
-          <th class="text-center" style="width: 14.25%;">Z</th>
-          <th class="text-center" style="width: 14.25%;">AC</th>
-          <th class="text-center" style="width: 14.25%;">P</th>
-          <th class="text-center" style="width: 14.25%;">CY</th>
+          <th class="text-center" style="width: 16.5%;">All</th>
+          <th class="text-center" style="width: 16.5%;">S</th>
+          <th class="text-center" style="width: 16.5%;">Z</th>
+          <th class="text-center" style="width: 16.5%;">AC</th>
+          <th class="text-center" style="width: 16.5%;">P</th>
+          <th class="text-center" style="width: 16.5%;">CY</th>
         </tr>
 
         <tr>
           <td class="text-center" ng-bind="data.instructionDetails.flagsAffected.all"></td>
-          <td class="text-center" ng-bind="data.instructionDetails.flagsAffected.none"></td>
           <td class="text-center" ng-bind="data.instructionDetails.flagsAffected.s"></td>
           <td class="text-center" ng-bind="data.instructionDetails.flagsAffected.z"></td>
           <td class="text-center" ng-bind="data.instructionDetails.flagsAffected.ac"></td>
@@ -60,17 +69,21 @@
 
     <hr/>
 
-    <div class="text-left" style="padding-left: 10px;">
-      <strong style="font-size: 14px;">Timing Diagram</strong> :
-    </div>
+    <div class="visible-md visible-lg">
 
-    <hr/>
+      <div class="text-left" style="padding-left: 10px;">
+        <strong style="font-size: 14px;">Timing Diagram</strong> :
+      </div>
 
-    <div id="canvasContainer">
-      <canvas id="canvas" style="display: block; margin: 0 auto; width: 80vw; height: 60vw;" ng-click="save();">
-        Your device does not support canvas API.<br/>
-        If you are seeing this message please contact me.
-      </canvas>
+      <hr/>
+
+      <div id="canvasContainer">
+        <canvas id="canvas" style="display: block; margin: 0 auto; width: 80vw; height: 60vw;" ng-click="save();">
+          Your device does not support canvas API.<br/>
+          If you are seeing this message please contact me.
+        </canvas>
+      </div>
+
     </div>
 
   </div>

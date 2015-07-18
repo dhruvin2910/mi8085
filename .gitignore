@@ -4,4 +4,3 @@ typings
 *.js
 *.js.map
 public/vendor
-server/data

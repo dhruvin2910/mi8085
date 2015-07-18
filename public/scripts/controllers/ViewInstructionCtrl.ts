@@ -17,13 +17,13 @@ module ViewInstructionCtrl {
         tStatesData: {
           getTStates: function (end) {
             var machineCycles = $scope.data.instructionDetails.machineCycles.split(' ');
-            var totalMachineCycles = 1;
+            var tStates = 1;
             for (var i = 0; i < end; i++) {
-              if (machineCycles[i] == 'F') totalMachineCycles += 4;
-              else if (machineCycles[i] == 'S') totalMachineCycles += 6;
-              else totalMachineCycles += 3;
+              if (machineCycles[i] == 'F') tStates += 4;
+              else if (machineCycles[i] == 'S') tStates += 6;
+              else tStates += 3;
             }
-            return totalMachineCycles;
+            return tStates;
           },
           getWidth: function () {
             return 1200 / $scope.data.tStatesData.getTStates($scope.data.instructionDetails.machineCycles.split(' ').length);
@@ -62,7 +62,7 @@ module ViewInstructionCtrl {
       $scope.drawMachineCycle = function (index, machineCycles) {
         var tState = $scope.data.tStatesData.getTStates(index);
         if (machineCycles[index] == 'F') $scope.drawFetch(tState);
-        else if (machineCycles[index] == 'S') $scope.drawExtendedFetch(tState);
+        else if (machineCycles[index] == 'S') $scope.drawFetch(tState);
         else if (machineCycles[index] == 'R') $scope.drawRead(tState);
         else if (machineCycles[index] == 'W') $scope.drawWrite(tState);
         else if (machineCycles[index] == 'I') $scope.drawIn(tState);
@@ -196,7 +196,7 @@ module ViewInstructionCtrl {
         // Draw H-Line Header
         ctx.save();
         ctx.lineWidth = 0.75;
-        for (i = 1; i < 5; i++) {
+        for (i = 2; i < 5; i++) {
           ctx.beginPath();
           ctx.moveTo(leftWidth, 20 * i);
           ctx.lineTo(leftWidth + viewWidth, 20 * i);
@@ -212,7 +212,7 @@ module ViewInstructionCtrl {
 
         // Draw V-Line Border
         ctx.beginPath();
-        ctx.moveTo(leftWidth, 20);
+        ctx.moveTo(leftWidth, 40);
         ctx.lineTo(leftWidth, 900);
         ctx.stroke();
 
@@ -221,7 +221,7 @@ module ViewInstructionCtrl {
         ctx.lineWidth = 0.75;
         for (i = 1; i < 4; i++) {
           ctx.beginPath();
-          ctx.moveTo(leftWidth + i * tStateWidth, 40);
+          ctx.moveTo(leftWidth + i * tStateWidth, 60);
           ctx.lineTo(leftWidth + i * tStateWidth, 900);
           ctx.stroke();
         }
@@ -229,7 +229,7 @@ module ViewInstructionCtrl {
 
         // Draw V-Line Border
         ctx.beginPath();
-        ctx.moveTo(leftWidth + viewWidth, 20);
+        ctx.moveTo(leftWidth + viewWidth, 40);
         ctx.lineTo(leftWidth + viewWidth, 900);
         ctx.stroke();
 
@@ -391,7 +391,7 @@ module ViewInstructionCtrl {
         // Draw H-Line Header
         ctx.save();
         ctx.lineWidth = 0.75;
-        for (i = 1; i < 5; i++) {
+        for (i = 2; i < 5; i++) {
           ctx.beginPath();
           ctx.moveTo(leftWidth, 20 * i);
           ctx.lineTo(leftWidth + viewWidth, 20 * i);
@@ -407,7 +407,7 @@ module ViewInstructionCtrl {
 
         // Draw V-Line Border
         ctx.beginPath();
-        ctx.moveTo(leftWidth, 20);
+        ctx.moveTo(leftWidth, 40);
         ctx.lineTo(leftWidth, 900);
         ctx.stroke();
 
@@ -416,7 +416,7 @@ module ViewInstructionCtrl {
         ctx.lineWidth = 0.75;
         for (i = 1; i < 3; i++) {
           ctx.beginPath();
-          ctx.moveTo(leftWidth + i * tStateWidth, 40);
+          ctx.moveTo(leftWidth + i * tStateWidth, 60);
           ctx.lineTo(leftWidth + i * tStateWidth, 900);
           ctx.stroke();
         }
@@ -424,7 +424,7 @@ module ViewInstructionCtrl {
 
         // Draw V-Line Border
         ctx.beginPath();
-        ctx.moveTo(leftWidth + viewWidth, 20);
+        ctx.moveTo(leftWidth + viewWidth, 40);
         ctx.lineTo(leftWidth + viewWidth, 900);
         ctx.stroke();
 
@@ -582,7 +582,7 @@ module ViewInstructionCtrl {
         // Draw H-Line Header
         ctx.save();
         ctx.lineWidth = 0.75;
-        for (i = 1; i < 5; i++) {
+        for (i = 2; i < 5; i++) {
           ctx.beginPath();
           ctx.moveTo(leftWidth, 20 * i);
           ctx.lineTo(leftWidth + viewWidth, 20 * i);
@@ -598,7 +598,7 @@ module ViewInstructionCtrl {
 
         // Draw V-Line Border
         ctx.beginPath();
-        ctx.moveTo(leftWidth, 20);
+        ctx.moveTo(leftWidth, 40);
         ctx.lineTo(leftWidth, 900);
         ctx.stroke();
 
@@ -607,7 +607,7 @@ module ViewInstructionCtrl {
         ctx.lineWidth = 0.75;
         for (i = 1; i < 3; i++) {
           ctx.beginPath();
-          ctx.moveTo(leftWidth + i * tStateWidth, 40);
+          ctx.moveTo(leftWidth + i * tStateWidth, 60);
           ctx.lineTo(leftWidth + i * tStateWidth, 900);
           ctx.stroke();
         }
@@ -615,7 +615,7 @@ module ViewInstructionCtrl {
 
         // Draw V-Line Border
         ctx.beginPath();
-        ctx.moveTo(leftWidth + viewWidth, 20);
+        ctx.moveTo(leftWidth + viewWidth, 40);
         ctx.lineTo(leftWidth + viewWidth, 900);
         ctx.stroke();
 
@@ -747,6 +747,389 @@ module ViewInstructionCtrl {
         // Draw IOW'
         ctx.beginPath();
         ctx.moveTo(leftWidth, 730);
+        ctx.lineTo(leftWidth + viewWidth, 730);
+        ctx.stroke();
+
+        ctx.restore();
+
+      };
+
+      $scope.drawIn = function (tState) {
+        var tStateWidth = $scope.data.tStatesData.getWidth();
+        var viewWidth = 3 * tStateWidth;
+        var leftWidth = tState * $scope.data.tStatesData.getWidth();
+        var i;
+
+        var ctx = <CanvasRenderingContext2D> $scope.data.ctx;
+
+        ctx.save();
+
+        // Draw H-Line Border
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 1);
+        ctx.lineTo(leftWidth + viewWidth, 1);
+        ctx.stroke();
+
+        // Draw H-Line Header
+        ctx.save();
+        ctx.lineWidth = 0.75;
+        for (i = 2; i < 5; i++) {
+          ctx.beginPath();
+          ctx.moveTo(leftWidth, 20 * i);
+          ctx.lineTo(leftWidth + viewWidth, 20 * i);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Draw H-Line Border
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 899);
+        ctx.lineTo(leftWidth + viewWidth, 899);
+        ctx.stroke();
+
+        // Draw V-Line Border
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 40);
+        ctx.lineTo(leftWidth, 900);
+        ctx.stroke();
+
+        // Draw V-Line Columns
+        ctx.save();
+        ctx.lineWidth = 0.75;
+        for (i = 1; i < 3; i++) {
+          ctx.beginPath();
+          ctx.moveTo(leftWidth + i * tStateWidth, 60);
+          ctx.lineTo(leftWidth + i * tStateWidth, 900);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Draw V-Line Border
+        ctx.beginPath();
+        ctx.moveTo(leftWidth + viewWidth, 40);
+        ctx.lineTo(leftWidth + viewWidth, 900);
+        ctx.stroke();
+
+        // Draw CLK
+        for (i = 0; i < 3; i++) {
+          ctx.beginPath();
+          ctx.moveTo(leftWidth + i * tStateWidth, 130);
+          ctx.lineTo(leftWidth + i * tStateWidth + tStateWidth / 12, 170);
+          ctx.lineTo(leftWidth + i * tStateWidth + tStateWidth / 2, 170);
+          ctx.lineTo(leftWidth + i * tStateWidth + 7 * tStateWidth / 12, 130);
+          ctx.lineTo(leftWidth + i * tStateWidth + tStateWidth, 130);
+          ctx.stroke();
+        }
+
+        // Draw A15
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 190);
+        ctx.lineTo(leftWidth + tStateWidth / 4, 190);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 230);
+        ctx.lineTo(leftWidth + viewWidth, 230);
+        ctx.stroke();
+
+        // Draw A8
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 230);
+        ctx.lineTo(leftWidth + tStateWidth / 4, 230);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 190);
+        ctx.lineTo(leftWidth + viewWidth, 190);
+        ctx.stroke();
+
+        // Draw AD7
+        ctx.beginPath();
+        ctx.moveTo(leftWidth + 7 * tStateWidth / 24, 270);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 290);
+        ctx.lineTo(leftWidth + 5 * tStateWidth / 4, 290);
+        ctx.lineTo(leftWidth + 31 * tStateWidth / 24, 270);
+        // ---
+        ctx.moveTo(leftWidth + 3 * tStateWidth / 2, 270);
+        ctx.lineTo(leftWidth + 37 * tStateWidth / 24, 250);
+        ctx.lineTo(leftWidth + 8 * tStateWidth / 3, 250);
+        ctx.lineTo(leftWidth + 65 * tStateWidth / 24, 270);
+        ctx.stroke();
+
+        // Draw ---
+        ctx.save();
+        ctx.setLineDash([5, 2]);
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 270);
+        ctx.lineTo(leftWidth + 7 * tStateWidth / 24, 270);
+        ctx.moveTo(leftWidth + 31 * tStateWidth / 24, 270);
+        ctx.lineTo(leftWidth + 3 * tStateWidth / 2, 270);
+        ctx.moveTo(leftWidth + 65 * tStateWidth / 24, 270);
+        ctx.lineTo(leftWidth + viewWidth, 270);
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw AD0
+        ctx.beginPath();
+        ctx.moveTo(leftWidth + 7 * tStateWidth / 24, 270);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 250);
+        ctx.lineTo(leftWidth + 5 * tStateWidth / 4, 250);
+        ctx.lineTo(leftWidth + 31 * tStateWidth / 24, 270);
+        // ---
+        ctx.moveTo(leftWidth + 3 * tStateWidth / 2, 270);
+        ctx.lineTo(leftWidth + 37 * tStateWidth / 24, 290);
+        ctx.lineTo(leftWidth + 8 * tStateWidth / 3, 290);
+        ctx.lineTo(leftWidth + 65 * tStateWidth / 24, 270);
+        ctx.stroke();
+
+        // Draw ALE
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 350);
+        ctx.lineTo(leftWidth + tStateWidth / 12, 310);
+        ctx.lineTo(leftWidth + 2 * tStateWidth / 3, 310);
+        ctx.lineTo(leftWidth + 3 * tStateWidth / 4, 350);
+        ctx.lineTo(leftWidth + viewWidth, 350);
+        ctx.stroke();
+
+        // Draw IO/M' & S1, S2
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 370);
+        ctx.lineTo(leftWidth + tStateWidth / 4, 370);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 410);
+        ctx.lineTo(leftWidth + viewWidth, 410);
+        ctx.moveTo(leftWidth, 410);
+        ctx.lineTo(leftWidth + tStateWidth / 4, 410);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 370);
+        ctx.lineTo(leftWidth + viewWidth, 370);
+        ctx.stroke();
+
+        // Draw RD'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 430);
+        ctx.lineTo(leftWidth + 5 * tStateWidth / 4, 430);
+        ctx.lineTo(leftWidth + 4 * tStateWidth / 3, 470);
+        ctx.lineTo(leftWidth + 8 * tStateWidth / 3, 470);
+        ctx.lineTo(leftWidth + 11 * tStateWidth / 4, 430);
+        ctx.lineTo(leftWidth + viewWidth, 430);
+        ctx.stroke();
+
+        // Draw WR'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 490);
+        ctx.lineTo(leftWidth + viewWidth, 490);
+        ctx.stroke();
+
+        // Draw MEMR'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 550);
+        ctx.lineTo(leftWidth + viewWidth, 550);
+        ctx.stroke();
+
+        // Draw MEMW'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 610);
+        ctx.lineTo(leftWidth + viewWidth, 610);
+        ctx.stroke();
+
+        // Draw IOR'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 670);
+        ctx.lineTo(leftWidth + 5 * tStateWidth / 4, 670);
+        ctx.lineTo(leftWidth + 4 * tStateWidth / 3, 710);
+        ctx.lineTo(leftWidth + 8 * tStateWidth / 3, 710);
+        ctx.lineTo(leftWidth + 11 * tStateWidth / 4, 670);
+        ctx.lineTo(leftWidth + viewWidth, 670);
+        ctx.stroke();
+
+        // Draw IOW'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 730);
+        ctx.lineTo(leftWidth + viewWidth, 730);
+        ctx.stroke();
+
+        ctx.restore();
+
+      };
+
+      $scope.drawOut = function (tState) {
+        var tStateWidth = $scope.data.tStatesData.getWidth();
+        var viewWidth = 3 * tStateWidth;
+        var leftWidth = tState * $scope.data.tStatesData.getWidth();
+        var i;
+
+        var ctx = <CanvasRenderingContext2D> $scope.data.ctx;
+
+        ctx.save();
+
+        // Draw H-Line Border
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 1);
+        ctx.lineTo(leftWidth + viewWidth, 1);
+        ctx.stroke();
+
+        // Draw H-Line Header
+        ctx.save();
+        ctx.lineWidth = 0.75;
+        for (i = 2; i < 5; i++) {
+          ctx.beginPath();
+          ctx.moveTo(leftWidth, 20 * i);
+          ctx.lineTo(leftWidth + viewWidth, 20 * i);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Draw H-Line Border
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 899);
+        ctx.lineTo(leftWidth + viewWidth, 899);
+        ctx.stroke();
+
+        // Draw V-Line Border
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 40);
+        ctx.lineTo(leftWidth, 900);
+        ctx.stroke();
+
+        // Draw V-Line Columns
+        ctx.save();
+        ctx.lineWidth = 0.75;
+        for (i = 1; i < 3; i++) {
+          ctx.beginPath();
+          ctx.moveTo(leftWidth + i * tStateWidth, 60);
+          ctx.lineTo(leftWidth + i * tStateWidth, 900);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Draw V-Line Border
+        ctx.beginPath();
+        ctx.moveTo(leftWidth + viewWidth, 40);
+        ctx.lineTo(leftWidth + viewWidth, 900);
+        ctx.stroke();
+
+        // Draw CLK
+        for (i = 0; i < 3; i++) {
+          ctx.beginPath();
+          ctx.moveTo(leftWidth + i * tStateWidth, 130);
+          ctx.lineTo(leftWidth + i * tStateWidth + tStateWidth / 12, 170);
+          ctx.lineTo(leftWidth + i * tStateWidth + tStateWidth / 2, 170);
+          ctx.lineTo(leftWidth + i * tStateWidth + 7 * tStateWidth / 12, 130);
+          ctx.lineTo(leftWidth + i * tStateWidth + tStateWidth, 130);
+          ctx.stroke();
+        }
+
+        // Draw A15
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 190);
+        ctx.lineTo(leftWidth + tStateWidth / 4, 190);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 230);
+        ctx.lineTo(leftWidth + viewWidth, 230);
+        ctx.stroke();
+
+        // Draw A8
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 230);
+        ctx.lineTo(leftWidth + tStateWidth / 4, 230);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 190);
+        ctx.lineTo(leftWidth + viewWidth, 190);
+        ctx.stroke();
+
+        // Draw AD7
+        ctx.beginPath();
+        ctx.moveTo(leftWidth + 7 * tStateWidth / 24, 270);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 290);
+        ctx.lineTo(leftWidth + 5 * tStateWidth / 4, 290);
+        ctx.lineTo(leftWidth + 31 * tStateWidth / 24, 270);
+        // ---
+        ctx.moveTo(leftWidth + 3 * tStateWidth / 2, 270);
+        ctx.lineTo(leftWidth + 37 * tStateWidth / 24, 250);
+        ctx.lineTo(leftWidth + 8 * tStateWidth / 3, 250);
+        ctx.lineTo(leftWidth + 65 * tStateWidth / 24, 270);
+        ctx.stroke();
+
+        // Draw ---
+        ctx.save();
+        ctx.setLineDash([5, 2]);
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 270);
+        ctx.lineTo(leftWidth + 7 * tStateWidth / 24, 270);
+        ctx.moveTo(leftWidth + 31 * tStateWidth / 24, 270);
+        ctx.lineTo(leftWidth + 3 * tStateWidth / 2, 270);
+        ctx.moveTo(leftWidth + 65 * tStateWidth / 24, 270);
+        ctx.lineTo(leftWidth + viewWidth, 270);
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw AD0
+        ctx.beginPath();
+        ctx.moveTo(leftWidth + 7 * tStateWidth / 24, 270);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 250);
+        ctx.lineTo(leftWidth + 5 * tStateWidth / 4, 250);
+        ctx.lineTo(leftWidth + 31 * tStateWidth / 24, 270);
+        // ---
+        ctx.moveTo(leftWidth + 3 * tStateWidth / 2, 270);
+        ctx.lineTo(leftWidth + 37 * tStateWidth / 24, 290);
+        ctx.lineTo(leftWidth + 8 * tStateWidth / 3, 290);
+        ctx.lineTo(leftWidth + 65 * tStateWidth / 24, 270);
+        ctx.stroke();
+
+        // Draw ALE
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 350);
+        ctx.lineTo(leftWidth + tStateWidth / 12, 310);
+        ctx.lineTo(leftWidth + 2 * tStateWidth / 3, 310);
+        ctx.lineTo(leftWidth + 3 * tStateWidth / 4, 350);
+        ctx.lineTo(leftWidth + viewWidth, 350);
+        ctx.stroke();
+
+        // Draw IO/M' & S1, S2
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 370);
+        ctx.lineTo(leftWidth + tStateWidth / 4, 370);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 410);
+        ctx.lineTo(leftWidth + viewWidth, 410);
+        ctx.moveTo(leftWidth, 410);
+        ctx.lineTo(leftWidth + tStateWidth / 4, 410);
+        ctx.lineTo(leftWidth + tStateWidth / 3, 370);
+        ctx.lineTo(leftWidth + viewWidth, 370);
+        ctx.stroke();
+
+        // Draw RD'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 430);
+        ctx.lineTo(leftWidth + viewWidth, 430);
+        ctx.stroke();
+
+        // Draw WR'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 490);
+        ctx.lineTo(leftWidth + 5 * tStateWidth / 4, 490);
+        ctx.lineTo(leftWidth + 4 * tStateWidth / 3, 530);
+        ctx.lineTo(leftWidth + 8 * tStateWidth / 3, 530);
+        ctx.lineTo(leftWidth + 11 * tStateWidth / 4, 490);
+        ctx.lineTo(leftWidth + viewWidth, 490);
+        ctx.stroke();
+
+        // Draw MEMR'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 550);
+        ctx.lineTo(leftWidth + viewWidth, 550);
+        ctx.stroke();
+
+        // Draw MEMW'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 610);
+        ctx.lineTo(leftWidth + viewWidth, 610);
+        ctx.stroke();
+
+
+        // Draw IOR'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 670);
+        ctx.lineTo(leftWidth + viewWidth, 670);
+        ctx.stroke();
+
+        // Draw IOW'
+        ctx.beginPath();
+        ctx.moveTo(leftWidth, 730);
+        ctx.lineTo(leftWidth + 5 * tStateWidth / 4, 730);
+        ctx.lineTo(leftWidth + 4 * tStateWidth / 3, 770);
+        ctx.lineTo(leftWidth + 8 * tStateWidth / 3, 770);
+        ctx.lineTo(leftWidth + 11 * tStateWidth / 4, 730);
         ctx.lineTo(leftWidth + viewWidth, 730);
         ctx.stroke();
 

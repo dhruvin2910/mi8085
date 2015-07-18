@@ -1,1 +1,24 @@
-{{view}}
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    Dashboard | 8085
+  </div>
+
+  <div class="panel-body">
+
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="instruction in data.instructions">
+        <a ng-href="#/view-instruction/{{underscoredMnemonic(instruction.mnemonic)}}">
+          {{instruction.opcode}}
+          {{instruction.operand == 'none' ? '' : instruction.operand}}
+        </a>
+        :
+        <span ng-bind="instruction.instruction"></span>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="panel-footer text-right">
+    <span class="glyphicon glyphicon-copyright-mark"></span> Dhruvin Gandhi
+  </div>
+</div>
