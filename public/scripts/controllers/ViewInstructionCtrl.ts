@@ -62,7 +62,7 @@ module ViewInstructionCtrl {
       $scope.drawMachineCycle = function (index, machineCycles) {
         var tState = $scope.data.tStatesData.getTStates(index);
         if (machineCycles[index] == 'F') $scope.drawFetch(tState);
-        else if (machineCycles[index] == 'S') $scope.drawFetch(tState);
+        else if (machineCycles[index] == 'S') $scope.drawExtendedFetch(tState);
         else if (machineCycles[index] == 'R') $scope.drawRead(tState);
         else if (machineCycles[index] == 'W') $scope.drawWrite(tState);
         else if (machineCycles[index] == 'I') $scope.drawIn(tState);

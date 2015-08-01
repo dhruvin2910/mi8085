@@ -151,10 +151,10 @@
     "addressingMode": "Register Direct",
     "instruction": "Logical AND with Accumulator",
     "code": "1010 0SSS",
-    "bytes": "1",
+    "bytes": "2",
     "mCycles": "1",
     "tStates": "7",
-    "machineCycles": "F",
+    "machineCycles": "F R",
     "flagsAffected": {
       "all": "Yes",
       "none": "No",
